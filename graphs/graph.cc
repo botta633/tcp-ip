@@ -1,22 +1,41 @@
 #include "graph.h"
 #include <assert.h>
-GNode *interface::get_nbr_node() { return this->attrNode; }
+GNode *interface::get_nbr_node() const { return this->attrNode; }
+
+std::string interface::getName() const{
+    return (this)->name;
+}
 
 void GNode::set_interface(interface &intf)
 {
+    assert((this->interfaceMapper).size() == MAX_INTF_SIZE);
 
-    for (int i = 0; i < MAX_INTF_SIZE; i++)
-        if (this->intf[i] == 0)
-            this->intf[i] = &intf;
-
-    assert("Node got maximum number of interfaces!");
+    interfaceMapper.insert(std::make_pair(intf.getName(), &intf));
+    
 }
 
-std::string GNode::getname()
+std::string GNode::getName()const
 {
     return this->name;
 }
 void graph::addNode(GNode &gnode)
 {
     this->node_list.addNode(&gnode);
+}
+
+void GNode::setName(std::string name) {
+    this->name = name;
+}
+
+
+interface* graph::getInterface(std::string nodeName, std::string interfaceName)const{
+    Node *temp = this->node_list.head;
+    while(temp){
+        if(temp->getName() == nodeName){
+            
+
+        }
+
+    }
+
 }

@@ -1,0 +1,6 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/botta633/tcp-ip'
+make: Leaving directory `/Users/botta633/tcp-ip'
+ 
+Makefile:5: *** commands commence before first target.  Stop.
+ 

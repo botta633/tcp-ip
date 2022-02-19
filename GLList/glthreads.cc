@@ -96,3 +96,4 @@ void glthread::initThread(unsigned int offset)
     this->head = nullptr;
     this->offset = offset;
 }
+

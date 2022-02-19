@@ -2,6 +2,7 @@
 #define __GRAPH_H__
 #include "../GLList/glthreads.h"
 #include <string>
+#include <unordered_map>
 
 #define MAX_INTF_SIZE 10
 #define MAX_NODE_NAME 16
@@ -26,23 +27,25 @@ public:
     {
         assert(name.length() > MAX_INTF_NAME);
     }
-    GNode *get_nbr_node();
+    GNode *get_nbr_node() const;
+    std::string getName() const;
 };
 
 class GNode : public Node
 {
-    std::string name;
-    interface *intf[MAX_INTF_SIZE] = {0};
+    std::unordered_map<std::string, interface*>interfaceMapper = {0, 0};
     glthread graph;
 
 public:
-    std::string getname();
+    std::string getName()const override ;
     void set_interface(interface &);
     explicit GNode(std::string name) : name(name)
     {
 
         assert(name.length() > MAX_NODE_NAME);
     }
+    void setName(std::string name) override;
+
 };
 
 class Link
@@ -80,6 +83,7 @@ public:
     }
     void setName(std::string name);
     void addNode(GNode &node);
+    interface* getInterface(std::string nodeName, std::string interfaceName) const;
 };
 
 #endif

@@ -8,9 +8,10 @@ class Node
 private:
 	Node *left;
 	Node *right;
-
-public:
+	protected:
 	std::string name;
+public:
+	
 	static void addNext(Node *currNode, Node *newNode);
 	static void removeNode(Node *node);
 	Node *getLeft();
@@ -18,6 +19,8 @@ public:
 	void setLeft(Node *);
 	void setRight(Node *);
 	void init();
+	virtual void setName(std::string name) = 0;
+	virtual std::string getName() const = 0;
 };
 
 class glthread
