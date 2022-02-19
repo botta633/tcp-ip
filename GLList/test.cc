@@ -13,7 +13,7 @@ public:
     Node node;
 
     emp(string name, unsigned int salary, string designation)
-       	: name(name), salary(salary), designation(designation)
+        : name(name), salary(salary), designation(designation)
     {
         node.init();
     }
@@ -33,20 +33,12 @@ int main()
 
     glthread emp_list;
 
-
-
-
     emp_list.initThread(offsetof(emp, node));
 
+    emp_list.addNode(emp1.node);
+    emp_list.addNode(emp2.node);
+    emp_list.addNode(emp3.node);
 
- 
-
-
-    emp_list.addNode(&emp1.node);
-    emp_list.addNode(&emp2.node);
-    emp_list.addNode(&emp3.node);
-
-    
     emp *ptr = nullptr;
     ITERATE_GL_THREADS_BEGIN(emp_list, emp, ptr)
     {

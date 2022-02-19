@@ -10,6 +10,7 @@ private:
 	Node *right;
 
 public:
+	std::string name;
 	static void addNext(Node *currNode, Node *newNode);
 	static void removeNode(Node *node);
 	Node *getLeft();
@@ -34,7 +35,7 @@ public:
                                                               \
 	{                                                         \
 		Node *node = nullptr, *next = nullptr;                \
-		for (node = threadptr.head; node; node = next)       \
+		for (node = threadptr.head; node; node = next)        \
 		{                                                     \
 			next = node->getRight();                          \
 			ptr = (struct_type *)((char *)node - threadptr.offset);
@@ -43,9 +44,6 @@ public:
 	}
 
 	void initThread(unsigned int offset);
-
 };
-
-
 
 #endif
