@@ -1,5 +1,5 @@
 #include "graph.h"
-
+#include <assert.h>
 GNode *interface::get_nbr_node() { return this->attrNode; }
 
 void GNode::set_interface(interface &intf)
@@ -18,8 +18,5 @@ std::string GNode::getname()
 }
 void graph::addNode(GNode &gnode)
 {
-    Node *node = new Node;
-    node->name = gnode.getname();
-
-    this->node_list.addNode(node);
+    this->node_list.addNode(&gnode);
 }

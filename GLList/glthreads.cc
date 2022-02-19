@@ -32,21 +32,21 @@ void Node::addNext(Node *currNode, Node *newNode)
     return;
 }
 
-void glthread::addNode(Node &node)
+void glthread::addNode(Node *node)
 {
 
-    node.setLeft(nullptr);
-    node.setRight(nullptr);
+    node->setLeft(nullptr);
+    node->setRight(nullptr);
 
     if (!this->head)
     {
-        this->head = &node;
+        this->head = node;
         return;
     }
 
     Node *head = this->head;
-    Node::addNext(&node, head);
-    this->head = &node;
+    Node::addNext(node, head);
+    this->head = node;
 }
 
 void Node::removeNode(Node *node)

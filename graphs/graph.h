@@ -17,7 +17,11 @@ class interface
     Link *link;
 
 public:
-    interface();
+    interface(){
+        name = "";
+        attrNode = nullptr;
+        link = nullptr;
+    };
     interface(std::string name, GNode &node, Link *link) : name(name), attrNode(&node), link(link)
     {
         assert(name.length() > MAX_INTF_NAME);
@@ -25,7 +29,7 @@ public:
     GNode *get_nbr_node();
 };
 
-class GNode
+class GNode : public Node
 {
     std::string name;
     interface *intf[MAX_INTF_SIZE] = {0};
@@ -36,7 +40,8 @@ public:
     void set_interface(interface &);
     explicit GNode(std::string name) : name(name)
     {
-        assert(name.length() > 16);
+
+        assert(name.length() > MAX_NODE_NAME);
     }
 };
 
