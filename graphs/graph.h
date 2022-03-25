@@ -1,8 +1,9 @@
-#ifndef __GRAPH_H__
-#define __GRAPH_H__
+#ifndef GRAPH_H__
+#define GRAPH_H__
 #include "../GLList/glthreads.h"
 #include <string>
 #include <unordered_map>
+#include <cassert>
 
 #define MAX_INTF_SIZE 10
 #define MAX_NODE_NAME 16
@@ -18,33 +19,24 @@ class interface
     Link *link;
 
 public:
-    interface(){
-        name = "";
-        attrNode = nullptr;
-        link = nullptr;
-    };
-    interface(std::string name, GNode &node, Link *link) : name(name), attrNode(&node), link(link)
-    {
-        assert(name.length() > MAX_INTF_NAME);
-    }
+    interface();
+    interface(std::string name, GNode &node, Link *link);   
     GNode *get_nbr_node() const;
     std::string getName() const;
 };
 
-class GNode : public Node
+class GNode : public Node<GNode>
 {
-    std::unordered_map<std::string, interface*>interfaceMapper = {0, 0};
-    glthread graph;
+    std::unordered_map<std::string, interface*>interfaceMapper;
+    glthread<GNode> graph;
+    std::string name;
 
 public:
     std::string getName()const override ;
     void set_interface(interface &);
-    explicit GNode(std::string name) : name(name)
-    {
-
-        assert(name.length() > MAX_NODE_NAME);
-    }
+    explicit GNode(std::string name);
     void setName(std::string name) override;
+    const std::unordered_map<std::string, interface*>& getMapper();
 
 };
 
@@ -55,20 +47,15 @@ class Link
     unsigned int cost;
 
 public:
-    explicit Link(GNode &src, GNode &dst, std::string intf1name, std::string intf2name, unsigned int cost)
-    {
-        intf1 = interface(intf1name, src, this);
-        intf2 = interface(intf2name, dst, this);
-        Link::cost = cost;
-        src.set_interface(intf1);
-        dst.set_interface(intf2);
-    }
-};
+    explicit Link(GNode &src, GNode &dst, std::string intf1name, 
+    std::string intf2name, unsigned int cost);
 
+   
+};
 class graph
 {
     std::string topologyName;
-    glthread node_list;
+    glthread<GNode> node_list;
     graph(std::string topologyName) : topologyName(topologyName) {}
 
     graph(graph const &) = delete;

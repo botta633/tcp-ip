@@ -1,13 +1,13 @@
 #include <iostream>
-#include "graph.h"
+#include "./graphs/graph.h"
 
 int main()
 {
+    std::string x = "test topology";
 
-    graph *Topology = graph::createTopology("Test Topology");
-    GNode src("src node");
-    GNode dst("dst node");
-
+    graph *Topology = graph::createTopology(x);
+    GNode src(x);
+    GNode dst(x);
     Link link(src, dst, "eth0/0", "eth1/0", 5);
 
 }
