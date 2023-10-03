@@ -1,26 +1,20 @@
 #include "glthreads.h"
 
-template <typename T>
-T *Node<T>::getLeft() { return this->left; }
+Node *Node::getLeft() { return this->left; }
 
-template <typename T>
-T *Node<T>::getRight() { return this->right; }
+Node *Node::getRight() { return this->right; }
 
-template <typename T>
-void Node<T>::setLeft(T *left) { this->left = left; }
+void Node::setLeft(Node *left) { this->left = left; }
 
-template <typename T>
-void Node<T>::setRight(T *right) { this->right = right; }
+void Node::setRight(Node *right) { this->right = right; }
 
-template <typename T>
-void Node<T>::init()
+void Node::init()
 {
     this->left = nullptr;
     this->right = nullptr;
 }
 
-template <typename T>
-void Node<T>::addNext(T *currNode, T *newNode)
+void Node::addNext(Node *currNode, Node *newNode)
 {
     if (!currNode->right)
     {
@@ -29,7 +23,7 @@ void Node<T>::addNext(T *currNode, T *newNode)
         return;
     }
 
-    T *temp = currNode->right;
+    Node *temp = currNode->right;
     currNode->right = newNode;
     newNode->left = currNode;
     newNode->right = temp;
@@ -38,8 +32,7 @@ void Node<T>::addNext(T *currNode, T *newNode)
     return;
 }
 
-template <typename T>
-void glthread<T>::addNode(T *node)
+void glthread::addNode(Node *node)
 {
     node->setLeft(nullptr);
     node->setRight(nullptr);
@@ -48,13 +41,12 @@ void glthread<T>::addNode(T *node)
         this->head = node;
         return;
     }
-    T *head = this->head;
-    Node<T>::addNext(node, head);
+    Node *head = this->head;
+    Node::addNext(node, head);
     this->head = node;
 }
 
-template <typename T>
-void Node<T>::removeNode(T *node)
+void Node::removeNode(Node *node)
 {
     if (!node->left)
     {
@@ -82,25 +74,27 @@ void Node<T>::removeNode(T *node)
     delete node;
 }
 
-template<typename T>
-void glthread<T>::removeNode(T *node)
+void glthread::removeNode(Node *node)
 {
-    T *head = this->head;
+    Node *head = this->head;
 
     if (head == node)
     {
-        T *temp = head->getRight();
+        Node *temp = head->getRight();
         delete head;
         this->head = temp;
     }
 
-    Node<T>::removeNode(node);
+    Node::removeNode(node);
 }
 
-template <typename T>
-void glthread<T>::initThread(unsigned int offset)
+void glthread::initThread(unsigned int offset)
 {
     this->head = nullptr;
     this->offset = offset;
 }
 
+Node *glthread::getHead()
+{
+    return this->head;
+}

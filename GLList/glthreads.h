@@ -3,39 +3,32 @@
 
 #include <string>
 
-template <typename T>
 class Node
 {
 private:
-	T *left;
-	T *right;
-	protected:
-	std::string name;
+	Node *left;
+	Node *right;
 
 public:
-	static void addNext(T *currNode, T *newNode);
-	static void removeNode(T *node);
-	T *getLeft();
-	T *getRight();
-	void setLeft(T *);
-	void setRight(T *);
+	static void addNext(Node *currNode, Node *newNode);
+	static void removeNode(Node *node);
+	Node *getLeft();
+	Node *getRight();
+	void setLeft(Node *);
+	void setRight(Node *);
 	void init();
-	virtual void setName(std::string name) = 0;
-	virtual std::string getName() const = 0;
 };
 
-
-template <typename T>
 class glthread
 {
 private:
-	T *head;
+	Node *head;
 	unsigned int offset;
 
 public:
-	void addNode(T *); /* adding a new head to the list */
-	void removeNode(T *);
-
+	void addNode(Node *); /* adding a new head to the list */
+	void removeNode(Node *);
+	Node *getHead();
 	void initThread(unsigned int offset);
 };
 

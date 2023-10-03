@@ -10,12 +10,12 @@ public:
     std::string name;
     unsigned int salary;
     std::string designation;
-    Node node;
+    Node *node;
 
     emp(string name, unsigned int salary, string designation)
         : name(name), salary(salary), designation(designation)
     {
-        node.init();
+        node->init();
     }
 
     static void print_emp_details(const emp &emp)
